@@ -1,0 +1,11 @@
+C:\_angularSamples\Angular_JWT_Activity\PtcApi\bin\Debug\netcoreapp2.0\PtcApi.deps.json
+C:\_angularSamples\Angular_JWT_Activity\PtcApi\bin\Debug\netcoreapp2.0\PtcApi.runtimeconfig.json
+C:\_angularSamples\Angular_JWT_Activity\PtcApi\bin\Debug\netcoreapp2.0\PtcApi.runtimeconfig.dev.json
+C:\_angularSamples\Angular_JWT_Activity\PtcApi\bin\Debug\netcoreapp2.0\PtcApi.dll
+C:\_angularSamples\Angular_JWT_Activity\PtcApi\bin\Debug\netcoreapp2.0\PtcApi.pdb
+C:\_angularSamples\Angular_JWT_Activity\PtcApi\obj\Debug\netcoreapp2.0\PtcApi.csprojAssemblyReference.cache
+C:\_angularSamples\Angular_JWT_Activity\PtcApi\obj\Debug\netcoreapp2.0\PtcApi.csproj.CoreCompileInputs.cache
+C:\_angularSamples\Angular_JWT_Activity\PtcApi\obj\Debug\netcoreapp2.0\PtcApi.AssemblyInfoInputs.cache
+C:\_angularSamples\Angular_JWT_Activity\PtcApi\obj\Debug\netcoreapp2.0\PtcApi.AssemblyInfo.cs
+C:\_angularSamples\Angular_JWT_Activity\PtcApi\obj\Debug\netcoreapp2.0\PtcApi.dll
+C:\_angularSamples\Angular_JWT_Activity\PtcApi\obj\Debug\netcoreapp2.0\PtcApi.pdb
