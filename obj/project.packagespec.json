@@ -30,6 +30,10 @@
           "target": "Package",
           "version": "[2.0.5, )"
         },
+        "Microsoft.AspNetCore.Authentication.JwtBearer": {
+          "target": "Package",
+          "version": "[2.0.4, )"
+        },
         "Microsoft.AspNetCore.Cors": {
           "target": "Package",
           "version": "[2.0.1, )"
@@ -43,6 +47,10 @@
           "target": "Package",
           "version": "[2.0.0, )",
           "autoReferenced": true
+        },
+        "System.IdentityModel.Tokens.Jwt": {
+          "target": "Package",
+          "version": "[5.2.2, )"
         }
       },
       "imports": [

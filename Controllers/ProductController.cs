@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using PtcApi.Model;
@@ -9,9 +10,11 @@ using PtcApi.Model;
 namespace PtcApi.Controllers
 {
   [Route("api/[controller]")]
+  [Authorize]
   public class ProductController : BaseApiController
   {
     [HttpGet]
+    [Authorize(Policy = "CanAccessProducts")]
     public IActionResult Get()
     {
       IActionResult ret = null;
@@ -21,7 +24,7 @@ namespace PtcApi.Controllers
       {
         using (var db = new PtcDbContext())
         {
-          if (db.Products.Count() > 0)
+          if (db.Products.Any())
           {
             list = db.Products.OrderBy(p => p.ProductName).ToList();
             ret = StatusCode(StatusCodes.Status200OK, list);

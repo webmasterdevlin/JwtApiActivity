@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,7 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
+using PtcApi.Model;
 
 namespace PtcApi
 {
@@ -24,6 +27,41 @@ namespace PtcApi
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      // Get JWT Token Settings from JwtSettings.json file
+      JwtSettings settings;
+      settings = GetJwtSettings();
+      
+      // Create singleton of JwtSettings
+      services.AddSingleton<JwtSettings>(settings);
+      
+      // Register Jwt as the Authentication service
+      services.AddAuthentication(options =>
+        {
+          options.DefaultAuthenticateScheme = "JwtBearer";
+          options.DefaultChallengeScheme = "JwtBearer";
+        }).AddJwtBearer("JwtBearer", jwtBearerOptions =>
+        {
+          jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+          {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.Key)),
+            ValidateIssuer = true,
+            ValidIssuer = settings.Issuer,
+            ValidateAudience = true,
+            ValidAudience = settings.Audience,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.FromMinutes(
+              settings.MinutesToExpiration)
+          };
+        });
+
+      services.AddAuthorization(cfg =>
+      {
+        // NOTE: The claim type and value are case-sensitive
+        cfg.AddPolicy("CanAccessProducts", p => p.RequireClaim("CanAccessProducts", "true"));
+      });
+      
+      
       services.AddCors();
 
       services.AddMvc()
@@ -45,7 +83,22 @@ namespace PtcApi
           "http://localhost:4200").AllowAnyMethod().AllowAnyHeader()
       );
 
+      app.UseAuthentication();
+      
       app.UseMvc();
+    }
+
+    public JwtSettings GetJwtSettings()
+    {
+      var settings = new JwtSettings
+      {
+        Key = Configuration["JwtSettings:key"],
+        Audience = Configuration["JwtSettings:audience"],
+        Issuer = Configuration["JwtSettings:issuer"],
+        MinutesToExpiration = Convert.ToInt32(Configuration["JwtSettings:minutesToExpiration"])
+      };
+
+      return settings;
     }
   }
 }

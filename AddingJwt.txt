@@ -1,0 +1,30 @@
+Adding JWT
+1. Add JWT package
+2. Add JWT bearer token checking package
+3. Store default JWT settings in configuration file
+4. Register JWT as the authentication service
+5. Add bearer token options to validate incoming token
+6. Build JWT token and add to authorization object
+
+NuGet
+dotnet add package System.IdentityModel.Tokens.Jwt
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+
+Configuring JSON Web Tokens
+1. A secret key used for hashing data sent to the client
+2. The name of the issuer of the token
+3. The intended audience of the token
+4. How many minutes to allow the token to be valid
+
+
+Store JwtSettings into JSON file
+Create JwtSettings class
+Create method to read settings
+Setup JWT as authentication method
+Add bearer token parameters
+Tell Web API to use authentication
+Inject JwtSettings class
+Pass JwtSettings to security manager
+Add method to create token
+
+
